@@ -1,5 +1,5 @@
 Summary:	Mouse and keyboard sharing utility
-Summary(pl.UTF-8):   Narzędzie do dzielenia myszy i klawiatury
+Summary(pl.UTF-8):	Narzędzie do dzielenia myszy i klawiatury
 Name:		synergy
 Version:	1.3.1
 Release:	0.1
