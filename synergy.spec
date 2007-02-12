@@ -1,5 +1,5 @@
 Summary:	Mouse and keyboard sharing utility
-Summary(pl):	Narzêdzie do dzielenia myszy i klawiatury
+Summary(pl.UTF-8):   NarzÄ™dzie do dzielenia myszy i klawiatury
 Name:		synergy
 Version:	1.3.1
 Release:	0.1
@@ -26,12 +26,12 @@ display, without special hardware. It's intended for users with
 multiple computers on their desk since each system uses its own
 display.
 
-%description -l pl
-Synergy pozwala ³atwo i bez specjalnego sprzêtu dzieliæ jedn± mysz i
-klawiaturê pomiêdzy wiele komputerów z ró¿nymi systemami operacyjnymi,
-z których ka¿dy ma w³asny monitor. Jest przeznaczony dla
-u¿ytkowników z wieloma komputerami na biurku, jako ¿e ka¿dy system
-u¿ywa w³asnego monitora.
+%description -l pl.UTF-8
+Synergy pozwala Å‚atwo i bez specjalnego sprzÄ™tu dzieliÄ‡ jednÄ… mysz i
+klawiaturÄ™ pomiÄ™dzy wiele komputerÃ³w z rÃ³Å¼nymi systemami operacyjnymi,
+z ktÃ³rych kaÅ¼dy ma wÅ‚asny monitor. Jest przeznaczony dla
+uÅ¼ytkownikÃ³w z wieloma komputerami na biurku, jako Å¼e kaÅ¼dy system
+uÅ¼ywa wÅ‚asnego monitora.
 
 %prep
 %setup -q
