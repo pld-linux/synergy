@@ -8,15 +8,14 @@ Group:		Daemons
 URL:		http://synergy2.sourceforge.net/
 Source0:	http://dl.sourceforge.net/synergy2/%{name}-%{version}.tar.gz
 # Source0-md5:	a6e09d6b71cb217f23069980060abf27
-BuildRequires:	X11-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
-#BuildRequires:	xorg-libX11-devel
-#BuildRequires:	xorg-libXext-devel
-#BuildRequires:	xorg-libXinerama-devel
-#BuildRequires:	xorg-libXt-devel
-#BuildRequires:	xorg-libXtst-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXt-devel
+BuildRequires:	xorg-lib-libXtst-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
