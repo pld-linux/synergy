@@ -19,7 +19,7 @@ if [ -z "$SYNERGY_SERVER" ]; then
 	echo "$0: SYNERGY_SERVER not set. Please update /etc/synergy/client.conf"
 fi
 
-SYNERGYC_NAME=${SYNERGYC_NAME:-hostname -s}
+SYNERGYC_NAME=${SYNERGYC_NAME:-$(hostname -s)}
 
 killall -TERM synergyc 2> /dev/null
 usleep 300

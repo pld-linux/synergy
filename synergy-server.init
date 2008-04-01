@@ -15,7 +15,7 @@ if ! is_yes "${NETWORKING}"; then
         exit 0
 fi
 
-SYNERGYS_NAME=${SYNERGYS_NAME:-hostname -s}
+SYNERGYS_NAME=${SYNERGYS_NAME:-$(hostname -s)}
 
 [ -n "$SYNERGYS_ADDRESS" ] && SYNERGYS_OPTS="$SYNERGYS_OPTS --address $SYNERGYS_ADDRESS"
 
