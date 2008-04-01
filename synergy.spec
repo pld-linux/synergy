@@ -8,6 +8,11 @@ Group:		Daemons
 URL:		http://synergy2.sourceforge.net/
 Source0:	http://dl.sourceforge.net/synergy2/%{name}-%{version}.tar.gz
 # Source0-md5:	a6e09d6b71cb217f23069980060abf27
+Source1:	%{name}-client.init
+Source2:	%{name}-client.conf
+Source3:	%{name}-server.init
+Source4:	%{name}-server.conf
+Source5:	%{name}-server-layout.conf
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
@@ -28,9 +33,25 @@ display.
 %description -l pl.UTF-8
 Synergy pozwala łatwo i bez specjalnego sprzętu dzielić jedną mysz i
 klawiaturę pomiędzy wiele komputerów z różnymi systemami operacyjnymi,
-z których każdy ma własny monitor. Jest przeznaczony dla
-użytkowników z wieloma komputerami na biurku, jako że każdy system
-używa własnego monitora.
+z których każdy ma własny monitor. Jest przeznaczony dla użytkowników
+z wieloma komputerami na biurku, jako że każdy system używa własnego
+monitora.
+
+%package xinitrc-client
+Summary:	xinitrc startup scripts for synergy client
+Group:		Daemons
+Requires:	%{name} = %{version}-%{release}
+
+%description xinitrc-client
+xinitrc startup scripts for synergy client.
+
+%package xinitrc-server
+Summary:	xinitrc startup scripts for synergy server
+Group:		Daemons
+Requires:	%{name} = %{version}-%{release}
+
+%description xinitrc-server
+xinitrc startup scripts for synergy server.
 
 %prep
 %setup -q
@@ -43,8 +64,18 @@ używa własnego monitora.
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT/etc/{X11/xinit/xinitrc.d,synergy}
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergyc.sh
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/synergyc.conf
+
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergys.sh
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/synergys.conf
+
+install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/layout.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -56,3 +87,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc examples/synergy.conf
 %attr(755,root,root) %{_bindir}/synergyc
 %attr(755,root,root) %{_bindir}/synergys
+%dir %{_sysconfdir}/synergy
+
+%files xinitrc-client
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_sysconfdir}/X11/xinit/xinitrc.d/synergyc.sh
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/synergyc.conf
+
+%files xinitrc-server
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_sysconfdir}/X11/xinit/xinitrc.d/synergys.sh
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/synergys.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/layout.conf
