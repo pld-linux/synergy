@@ -70,10 +70,10 @@ install -d $RPM_BUILD_ROOT/etc/{X11/xinit/xinitrc.d,synergy}
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergyc.sh
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/synergyc.conf
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/client.conf
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergys.sh
-install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/synergys.conf
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/server.conf
 
 install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/layout.conf
 
@@ -92,10 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 %files xinitrc-client
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sysconfdir}/X11/xinit/xinitrc.d/synergyc.sh
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/synergyc.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/client.conf
 
 %files xinitrc-server
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sysconfdir}/X11/xinit/xinitrc.d/synergys.sh
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/synergys.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/server.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/synergy/layout.conf
