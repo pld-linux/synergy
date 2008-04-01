@@ -11,8 +11,8 @@
 
 # Check that networking is up.
 if ! is_yes "${NETWORKING}"; then
-	echo "$0: Networking disabled" >&2
-        exit 0
+	echo >&2 "$0: Networking disabled"
+	exit 0
 fi
 
 SYNERGYS_NAME=${SYNERGYS_NAME:-$(hostname -s)}
