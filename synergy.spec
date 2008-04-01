@@ -2,7 +2,7 @@ Summary:	Mouse and keyboard sharing utility
 Summary(pl.UTF-8):	Narzędzie do dzielenia myszy i klawiatury
 Name:		synergy
 Version:	1.3.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Daemons
 URL:		http://synergy2.sourceforge.net/
@@ -41,6 +41,7 @@ monitora.
 Summary:	xinitrc startup scripts for synergy client
 Group:		Daemons
 Requires:	%{name} = %{version}-%{release}
+Requires:	xinitrc
 
 %description xinitrc-client
 xinitrc startup scripts for synergy client.
@@ -49,6 +50,7 @@ xinitrc startup scripts for synergy client.
 Summary:	xinitrc startup scripts for synergy server
 Group:		Daemons
 Requires:	%{name} = %{version}-%{release}
+Requires:	xinitrc
 
 %description xinitrc-server
 xinitrc startup scripts for synergy server.
