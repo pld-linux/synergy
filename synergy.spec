@@ -39,6 +39,7 @@ monitora.
 
 %package xinitrc-client
 Summary:	xinitrc startup scripts for synergy client
+Summary(pl.UTF-8):	Skrypty startowe xinitrc dla klienta synergy
 Group:		Daemons
 Requires:	%{name} = %{version}-%{release}
 Requires:	xinitrc
@@ -46,14 +47,21 @@ Requires:	xinitrc
 %description xinitrc-client
 xinitrc startup scripts for synergy client.
 
+%description xinitrc-client -l pl.UTF-8
+Skrypty startowe xinitrc dla klienta synergy.
+
 %package xinitrc-server
 Summary:	xinitrc startup scripts for synergy server
+Summary(pl.UTF-8):	Skrypty startowe xinitrc dla serwera synergy
 Group:		Daemons
 Requires:	%{name} = %{version}-%{release}
 Requires:	xinitrc
 
 %description xinitrc-server
 xinitrc startup scripts for synergy server.
+
+%description xinitrc-server -l pl.UTF-8
+Skrypty startowe xinitrc dla serwera synergy.
 
 %prep
 %setup -q
