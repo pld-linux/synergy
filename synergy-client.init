@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/synergy/client.conf ] && . /etc/synergy/client.conf
+
+# Check that networking is up.
+if ! is_yes "${NETWORKING}"; then
+	echo "$0: Networking disabled" >&2
+        exit 0
+fi
+
+if [ -z "$SYNERGY_SERVER" ]; then
+	echo "$0: SYNERGY_SERVER not set. Please update /etc/synergy/client.conf"
+fi
+
+SYNERGYC_NAME=${SYNERGYC_NAME:-hostname -s}
+
+killall -TERM synergyc 2> /dev/null
+usleep 300
+killall -9 synergyc 2> /dev/null
+
+/usr/bin/synergyc --daemon --restart -n ${SYNERGYC_NAME} ${SYNERGY_SERVER}

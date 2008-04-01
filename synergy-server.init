@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/synergy/server.conf ] && . /etc/synergy/server.conf
+
+# Check that networking is up.
+if ! is_yes "${NETWORKING}"; then
+	echo "$0: Networking disabled" >&2
+        exit 0
+fi
+
+SYNERGYS_NAME=${SYNERGYS_NAME:-hostname -s}
+
+[ -n "$SYNERGYS_ADDRESS" ] && SYNERGYS_OPTS="$SYNERGYS_OPTS --address $SYNERGYS_ADDRESS"
+
+killall -TERM synergys 2> /dev/null
+usleep 300
+killall -9 synergys 2> /dev/null
+
+/usr/bin/synergys --daemon --restart -n ${SYNERGYS_NAME} --config /etc/synergy/layout.conf ${SYNERGYS_OPTS}
