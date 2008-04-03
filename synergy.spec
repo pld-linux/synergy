@@ -67,6 +67,7 @@ Skrypty startowe xinitrc dla serwera synergy.
 %setup -q
 
 %build
+%{__aclocal}
 %{__autoconf}
 %configure
 %{__make}
