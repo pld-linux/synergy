@@ -5,7 +5,6 @@ Version:	1.3.1
 Release:	2
 License:	GPL
 Group:		Daemons
-URL:		http://synergy2.sourceforge.net/
 Source0:	http://dl.sourceforge.net/synergy2/%{name}-%{version}.tar.gz
 # Source0-md5:	a6e09d6b71cb217f23069980060abf27
 Source1:	%{name}-client.init
@@ -13,6 +12,7 @@ Source2:	%{name}-client.conf
 Source3:	%{name}-server.init
 Source4:	%{name}-server.conf
 Source5:	%{name}-server-layout.conf
+URL:		http://synergy2.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
