@@ -1,18 +1,24 @@
+# Note:
+# - Synergy-plus started as a fork to fix bugs on a stagnate project. They have since
+#   combined forces with the original project and have merged code. Project is called
+#   synergy again but still has some leftover synergy-plus naming like tar file names
+#
+%define pkgname synergy-plus
 Summary:	Mouse and keyboard sharing utility
 Summary(pl.UTF-8):	Narzędzie do dzielenia myszy i klawiatury
 Name:		synergy
-Version:	1.3.1
-Release:	2
+Version:	1.3.4
+Release:	1
 License:	GPL
 Group:		Daemons
-Source0:	http://dl.sourceforge.net/synergy2/%{name}-%{version}.tar.gz
-# Source0-md5:	a6e09d6b71cb217f23069980060abf27
+Source0:	http://synergy-plus.googlecode.com/files/%{pkgname}-%{version}.tar.gz
+# Source0-md5:	2c565afe5f920d363eef38dd97449b73
 Source1:	%{name}-client.init
 Source2:	%{name}-client.conf
 Source3:	%{name}-server.init
 Source4:	%{name}-server.conf
 Source5:	%{name}-server-layout.conf
-URL:		http://synergy2.sourceforge.net/
+URL:		http://synergy-foss.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
@@ -64,7 +70,7 @@ xinitrc startup scripts for synergy server.
 Skrypty startowe xinitrc dla serwera synergy.
 
 %prep
-%setup -q
+%setup -q -n %{pkgname}-%{version}
 
 %build
 %{__aclocal}
@@ -94,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog COPYING doc/PORTING NEWS README
-%doc doc/*.css doc/*.html
+#%doc doc/*.css doc/*.html
 %doc examples/synergy.conf
 %attr(755,root,root) %{_bindir}/synergyc
 %attr(755,root,root) %{_bindir}/synergys
