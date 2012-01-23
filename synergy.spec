@@ -3,24 +3,22 @@
 #   combined forces with the original project and have merged code. Project is called
 #   synergy again but still has some leftover synergy-plus naming like tar file names
 #
-%define pkgname synergy-plus
 Summary:	Mouse and keyboard sharing utility
 Summary(pl.UTF-8):	Narzędzie do dzielenia myszy i klawiatury
 Name:		synergy
-Version:	1.3.4
+Version:	1.3.8
 Release:	1
-License:	GPL
+License:	GPL v2
 Group:		Daemons
-Source0:	http://synergy-plus.googlecode.com/files/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	2c565afe5f920d363eef38dd97449b73
+Source0:	http://synergy.googlecode.com/files/%{name}-%{version}-Source.tar.gz
+# Source0-md5:	3534c65ecfa6e47d7899c57975442f03
 Source1:	%{name}-client.init
 Source2:	%{name}-client.conf
 Source3:	%{name}-server.init
 Source4:	%{name}-server.conf
 Source5:	%{name}-server-layout.conf
 URL:		http://synergy-foss.org/
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	cmake
 BuildRequires:	libstdc++-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
@@ -70,41 +68,44 @@ xinitrc startup scripts for synergy server.
 Skrypty startowe xinitrc dla serwera synergy.
 
 %prep
-%setup -q -n %{pkgname}-%{version}
+%setup -q -n %{name}-%{version}-Source
 
 %build
-%{__aclocal}
-%{__autoconf}
-%configure
+install -d build
+cd build
+%cmake ..
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/etc/X11/xinit/xinitrc.d,%{_sysconfdir}/synergy,%{_bindir},%{_mandir}/man1}
 
-install -d $RPM_BUILD_ROOT/etc/{X11/xinit/xinitrc.d,synergy}
+install -p bin/* $RPM_BUILD_ROOT%{_bindir}
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/*tests
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergyc.sh
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/client.conf
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergyc.sh
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/client.conf
+install -p %{SOURCE3} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergys.sh
+cp -p %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/server.conf
 
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/synergys.sh
-install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/server.conf
+cp -p %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/layout.conf
 
-install %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/synergy/layout.conf
+cp -p doc/synergyc.man $RPM_BUILD_ROOT%{_mandir}/man1/synergyc.1
+cp -p doc/synergys.man $RPM_BUILD_ROOT%{_mandir}/man1/synergys.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog COPYING doc/PORTING NEWS README
-#%doc doc/*.css doc/*.html
-%doc examples/synergy.conf
+%doc ChangeLog INSTALL README
+%doc doc/synergy.conf*
+%dir %{_sysconfdir}/synergy
 %attr(755,root,root) %{_bindir}/synergyc
 %attr(755,root,root) %{_bindir}/synergys
-%dir %{_sysconfdir}/synergy
+%{_mandir}/man1/synergyc.1*
+%{_mandir}/man1/synergys.1*
 
 %files xinitrc-client
 %defattr(644,root,root,755)
