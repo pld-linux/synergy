@@ -12,7 +12,7 @@
 # Check that networking is up.
 if ! is_yes "${NETWORKING}"; then
 	echo >&2 "$0: Networking disabled"
-	exit 0
+	exit 3
 fi
 
 SYNERGYS_NAME=${SYNERGYS_NAME:-$(hostname -s)}
@@ -23,4 +23,4 @@ killall -TERM synergys 2> /dev/null
 usleep 300
 killall -9 synergys 2> /dev/null
 
-/usr/bin/synergys --daemon --restart -n ${SYNERGYS_NAME} --config /etc/synergy/layout.conf ${SYNERGYS_OPTS}
+exec /usr/bin/synergys --daemon --restart -n ${SYNERGYS_NAME} --config /etc/synergy/layout.conf ${SYNERGYS_OPTS}
