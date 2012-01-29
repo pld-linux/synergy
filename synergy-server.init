@@ -1,7 +1,20 @@
 #!/bin/sh
 
-# Source function library
-. /etc/rc.d/init.d/functions
+# is_yes taken from rc-scripts
+is_yes()
+{
+	# Check value
+	case "$1" in
+	  yes|Yes|YES|true|True|TRUE|on|On|ON|Y|y|1)
+		# true returns zero
+		return 0
+		;;
+	  *)
+		# false returns one
+		return 1
+		;;
+	esac
+}
 
 # Get network config
 . /etc/sysconfig/network
@@ -12,15 +25,18 @@
 # Check that networking is up.
 if ! is_yes "${NETWORKING}"; then
 	echo >&2 "$0: Networking disabled"
-	exit 3
+	return 3
 fi
 
 SYNERGYS_NAME=${SYNERGYS_NAME:-$(hostname -s)}
 
 [ -n "$SYNERGYS_ADDRESS" ] && SYNERGYS_OPTS="$SYNERGYS_OPTS --address $SYNERGYS_ADDRESS"
 
-killall -TERM synergys 2> /dev/null
-usleep 300
-killall -9 synergys 2> /dev/null
+pids=$(pgrep -u $USER synergys)
+if [ -n "$pids" ]; then
+	kill -TERM $pids
+	usleep 300
+	kill -9 $pids
+fi
 
-exec /usr/bin/synergys --daemon --restart -n ${SYNERGYS_NAME} --config /etc/synergy/layout.conf ${SYNERGYS_OPTS}
+synergys --daemon --restart -n ${SYNERGYS_NAME} --config /etc/synergy/layout.conf ${SYNERGYS_OPTS} &
