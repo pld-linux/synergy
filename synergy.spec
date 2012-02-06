@@ -2,12 +2,14 @@
 # - Synergy-plus started as a fork to fix bugs on a stagnate project. They have since
 #   combined forces with the original project and have merged code. Project is called
 #   synergy again but still has some leftover synergy-plus naming like tar file names
+# TODO:
+# - add xdg/autostart for -client and -server instead
 #
 Summary:	Mouse and keyboard sharing utility
 Summary(pl.UTF-8):	Narzędzie do dzielenia myszy i klawiatury
 Name:		synergy
 Version:	1.3.8
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Daemons
 Source0:	http://synergy.googlecode.com/files/%{name}-%{version}-Source.tar.gz
